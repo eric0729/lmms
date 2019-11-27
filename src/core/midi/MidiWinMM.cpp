@@ -72,7 +72,7 @@ void MidiWinMM::processOutEvent( const MidiEvent& event, const MidiTime& time, c
 	{
 		if( outDevs.contains( *it ) )
 		{
-			midiOutShortMsg( it.key(), shortMsg );
+            //midiOutShortMsg( it.key(), shortMsg );
 		}
 	}
 }
@@ -253,15 +253,15 @@ void MidiWinMM::closeDevices()
 	while( i.hasNext() )
 	{
 		hInDev = i.next().key();
-		midiInReset( hInDev );
-		midiInClose( hInDev );
+        //midiInReset( hInDev );
+        //midiInClose( hInDev );
 	}
 
 	QMapIterator<HMIDIOUT, QString> o( m_outputDevices );
-	while( o.hasNext() )
-	{
-		midiOutClose( o.next().key() );
-	}
+    //while( o.hasNext() )
+    //{
+        //midiOutClose( o.next().key() );
+    //}
 
 	m_inputDevices.clear();
 	m_outputDevices.clear();
@@ -273,6 +273,7 @@ void MidiWinMM::closeDevices()
 void MidiWinMM::openDevices()
 {
 	m_inputDevices.clear();
+#if 0
 	for( unsigned int i = 0; i < midiInGetNumDevs(); ++i )
 	{
 		MIDIINCAPS c;
@@ -283,7 +284,7 @@ void MidiWinMM::openDevices()
 							CALLBACK_FUNCTION );
 		if( res == MMSYSERR_NOERROR )
 		{
-			m_inputDevices[hm] = qstrdup( c.szPname );
+            m_inputDevices[hm] = qstrdup( c.szPname );
 			midiInStart( hm );
 		}
 	}
@@ -297,9 +298,10 @@ void MidiWinMM::openDevices()
 		MMRESULT res = midiOutOpen( &hm, i, 0, 0, CALLBACK_NULL );
 		if( res == MMSYSERR_NOERROR )
 		{
-			m_outputDevices[hm] = qstrdup( c.szPname );
+            m_outputDevices[hm] = qstrdup( c.szPname );
 		}
 	}
+#endif
 }
 
 

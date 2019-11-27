@@ -30,7 +30,7 @@
 #include "lmms_export.h"
 
 #include <vector>
-#include <fftw3.h>
+//#include <fftw3.h>
 
 // NOTE: FFT_BUFFER_SIZE should be considered deprecated!
 // It is used by Eq plugin and some older code here, but this should be a user
@@ -55,8 +55,8 @@ enum FFT_WINDOWS
  *
  *	@return -1 on error, 0 on success
  */
-float LMMS_EXPORT maximum(const float *abs_spectrum, unsigned int spec_size);
-float LMMS_EXPORT maximum(const std::vector<float> &abs_spectrum);
+//float LMMS_EXPORT maximum(const float *abs_spectrum, unsigned int spec_size);
+//float LMMS_EXPORT maximum(const std::vector<float> &abs_spectrum);
 
 
 /** Normalize the abs_spectrum array of absolute values to a 0..1 range
@@ -90,8 +90,8 @@ int LMMS_EXPORT precomputeWindow(float *window, unsigned int length, FFT_WINDOWS
  *
  *	@return 0 on success, else -1
  */
-int LMMS_EXPORT absspec(const fftwf_complex *complex_buffer, float *absspec_buffer,
-						unsigned int compl_length);
+//int LMMS_EXPORT absspec(const fftwf_complex *complex_buffer, float *absspec_buffer,
+//						unsigned int compl_length);
 
 
 /**	Build fewer subbands from many absolute spectrum values.

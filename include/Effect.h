@@ -217,8 +217,8 @@ private:
 	
 	bool m_autoQuitDisabled;
 
-	SRC_DATA m_srcData[2];
-	SRC_STATE * m_srcState[2];
+	//SRC_DATA m_srcData[2];
+	//SRC_STATE * m_srcState[2];
 
 
 	friend class EffectView;

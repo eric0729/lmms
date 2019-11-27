@@ -29,7 +29,7 @@
 #include <QtCore/QThread>
 #include <QtCore/QVector>
 #include <QtCore/QWaitCondition>
-#include <samplerate.h>
+//#include <samplerate.h>
 
 
 #include "lmms_basics.h"
@@ -138,6 +138,7 @@ public:
 
 		int libsrcInterpolation() const
 		{
+		#if 0
 			switch( interpolation )
 			{
 				case Interpolation_Linear:
@@ -150,6 +151,9 @@ public:
 					return SRC_SINC_BEST_QUALITY;
 			}
 			return SRC_LINEAR;
+        #else
+            return 0;
+        #endif
 		}
 	} ;
 

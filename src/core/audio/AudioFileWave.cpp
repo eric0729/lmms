@@ -35,8 +35,8 @@ AudioFileWave::AudioFileWave( OutputSettings const & outputSettings,
 				const ch_cnt_t channels, bool & successful,
 				const QString & file,
 				Mixer* mixer ) :
-	AudioFileDevice( outputSettings, channels, file, mixer ),
-	m_sf( NULL )
+    AudioFileDevice( outputSettings, channels, file, mixer ) //,
+    //m_sf( NULL )
 {
 	successful = outputFileOpened() && startEncoding();
 }
@@ -54,6 +54,7 @@ AudioFileWave::~AudioFileWave()
 
 bool AudioFileWave::startEncoding()
 {
+#if 0
 	m_si.samplerate = sampleRate();
 	m_si.channels = channels();
 	m_si.frames = mixer()->framesPerPeriod();
@@ -89,7 +90,7 @@ bool AudioFileWave::startEncoding()
 	sf_command(m_sf, SFC_SET_CLIPPING, NULL, SF_TRUE);
 
 	sf_set_string ( m_sf, SF_STR_SOFTWARE, "LMMS" );
-
+#endif
 	return true;
 }
 
@@ -113,7 +114,7 @@ void AudioFileWave::writeBuffer( const surroundSampleFrame * _ab,
 								_master_gain;
 			}
 		}
-		sf_writef_float( m_sf, buf, _frames );
+        //sf_writef_float( m_sf, buf, _frames );
 		delete[] buf;
 	}
 	else
@@ -122,7 +123,7 @@ void AudioFileWave::writeBuffer( const surroundSampleFrame * _ab,
 		convertToS16( _ab, _frames, _master_gain, buf,
 							!isLittleEndian() );
 
-		sf_writef_short( m_sf, buf, _frames );
+        //sf_writef_short( m_sf, buf, _frames );
 		delete[] buf;
 	}
 }
@@ -132,9 +133,11 @@ void AudioFileWave::writeBuffer( const surroundSampleFrame * _ab,
 
 void AudioFileWave::finishEncoding()
 {
-	if( m_sf )
-	{
-		sf_close( m_sf );
-	}
+#if 0
+    if( m_sf )
+    {
+    	sf_close( m_sf );
+    }
+#endif
 }
 

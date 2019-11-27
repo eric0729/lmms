@@ -420,7 +420,7 @@ void ConfigManager::loadConfigFile(const QString & configFile)
 	{
 		m_lmmsRcFile = configFile;
 	}
-
+#if 0 /* lmms.exe has stopped working */
 	QFile cfg_file(m_lmmsRcFile);
 	QDomDocument dom_tree;
 
@@ -520,7 +520,7 @@ void ConfigManager::loadConfigFile(const QString & configFile)
 		}
 		cfg_file.close();
 	}
-
+#endif
 	// Plugins are searched recursively, blacklist problematic locations
 	if( m_vstDir.isEmpty() || m_vstDir == QDir::separator() || m_vstDir == "/" ||
 			m_vstDir == ensureTrailingSlash( QDir::homePath() ) ||
@@ -595,7 +595,7 @@ void ConfigManager::saveConfigFile()
 	setValue("paths", "defaultsf2", m_sf2File);
 #endif
 	setValue("paths", "backgroundtheme", m_backgroundPicFile);
-
+#if 0 /* lmms.exe has stopped working */
 	QDomDocument doc("lmms-config-file");
 
 	QDomElement lmms_config = doc.createElement("lmms");
@@ -650,4 +650,5 @@ void ConfigManager::saveConfigFile()
 
 	outfile.write(xml.toUtf8());
 	outfile.close();
+#endif
 }

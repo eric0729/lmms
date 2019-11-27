@@ -29,8 +29,8 @@
 #include "Mixer.h"
 
 AudioFileFlac::AudioFileFlac(OutputSettings const& outputSettings, ch_cnt_t const channels, bool& successful, QString const& file, Mixer* mixer):
-	AudioFileDevice(outputSettings,channels,file,mixer),
-	m_sf(nullptr)
+    AudioFileDevice(outputSettings,channels,file,mixer) //,
+    //m_sf(nullptr)
 {
 	successful = outputFileOpened() && startEncoding();
 }
@@ -42,6 +42,7 @@ AudioFileFlac::~AudioFileFlac()
 
 bool AudioFileFlac::startEncoding()
 {
+#if 0
 	m_sfinfo.samplerate=sampleRate();
 	m_sfinfo.channels=channels();
 	m_sfinfo.frames = mixer()->framesPerPeriod();
@@ -79,7 +80,7 @@ bool AudioFileFlac::startEncoding()
 	sf_command(m_sf, SFC_SET_CLIPPING, nullptr, SF_TRUE);
 
 	sf_set_string(m_sf, SF_STR_SOFTWARE, "LMMS");
-
+#endif
 	return true;
 }
 
@@ -97,13 +98,13 @@ void AudioFileFlac::writeBuffer(surroundSampleFrame const* _ab, fpp_t const fram
 				buf[frame*channels() + channel] = _ab[frame][channel] * master_gain;
 			}
 		}
-		sf_writef_float(m_sf,static_cast<float*>(buf.get()),frames);
+        //sf_writef_float(m_sf,static_cast<float*>(buf.get()),frames);
 	}
 	else // integer PCM encoding
 	{
 		std::unique_ptr<int_sample_t[]> buf{ new int_sample_t[frames*channels()] };
 		convertToS16(_ab, frames, master_gain, buf.get(), !isLittleEndian());
-		sf_writef_short(m_sf, static_cast<short*>(buf.get()), frames);
+        //sf_writef_short(m_sf, static_cast<short*>(buf.get()), frames);
 	}
 
 }
@@ -111,9 +112,11 @@ void AudioFileFlac::writeBuffer(surroundSampleFrame const* _ab, fpp_t const fram
 
 void AudioFileFlac::finishEncoding()
 {
-	if (m_sf)
-	{
-		sf_write_sync(m_sf);
-		sf_close(m_sf);
-	}
+#if 0
+    if (m_sf)
+    {
+    	sf_write_sync(m_sf);
+    	sf_close(m_sf);
+    }
+#endif
 }

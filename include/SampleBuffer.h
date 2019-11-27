@@ -29,7 +29,7 @@
 #include <QtCore/QReadWriteLock>
 #include <QtCore/QObject>
 
-#include <samplerate.h>
+//#include <samplerate.h>
 
 #include "lmms_export.h"
 #include "interpolation.h"
@@ -62,7 +62,7 @@ public:
 	{
 		MM_OPERATORS
 	public:
-		handleState( bool _varying_pitch = false, int interpolation_mode = SRC_LINEAR );
+                handleState( bool _varying_pitch = false, int interpolation_mode = 0 /*SRC_LINEAR*/ );
 		virtual ~handleState();
 
 		const f_cnt_t frameIndex() const
@@ -95,7 +95,7 @@ public:
 		f_cnt_t m_frameIndex;
 		const bool m_varyingPitch;
 		bool m_isBackwards;
-		SRC_STATE * m_resamplingData;
+		//SRC_STATE * m_resamplingData;
 		int m_interpolationMode;
 
 		friend class SampleBuffer;

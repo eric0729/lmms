@@ -26,7 +26,7 @@
 #define AUDIO_DEVICE_H
 
 #include <QtCore/QMutex>
-#include <samplerate.h>
+//#include <samplerate.h>
 
 #include "lmms_basics.h"
 
@@ -148,8 +148,8 @@ private:
 
 	QMutex m_devMutex;
 
-	SRC_DATA m_srcData;
-	SRC_STATE * m_srcState;
+	//SRC_DATA m_srcData;
+	//SRC_STATE * m_srcState;
 
 	surroundSampleFrame * m_buffer;
 

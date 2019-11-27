@@ -32,7 +32,7 @@
 #include <QPainter>
 
 
-#include <sndfile.h>
+//#include <sndfile.h>
 
 #define OV_EXCLUDE_STATIC_CALLBACKS
 #ifdef LMMS_HAVE_OGGVORBIS
@@ -196,6 +196,7 @@ void SampleBuffer::update( bool _keep_settings )
 			// Use QFile to handle unicode file names on Windows
 			QFile f(file);
 			f.open(QIODevice::ReadOnly);
+#if 0
 			SNDFILE * snd_file;
 			SF_INFO sf_info;
 			sf_info.format = 0;
@@ -209,6 +210,7 @@ void SampleBuffer::update( bool _keep_settings )
 				}
 				sf_close( snd_file );
 			}
+#endif
 			f.close();
 		}
 
@@ -412,6 +414,7 @@ f_cnt_t SampleBuffer::decodeSampleSF(QString _f,
 					ch_cnt_t & _channels,
 					sample_rate_t & _samplerate )
 {
+#if 0
 	SNDFILE * snd_file;
 	SF_INFO sf_info;
 	sf_info.format = 0;
@@ -458,6 +461,9 @@ f_cnt_t SampleBuffer::decodeSampleSF(QString _f,
 	}
 
 	return frames;
+#else
+    return 0;
+#endif
 }
 
 
@@ -690,7 +696,8 @@ bool SampleBuffer::play( sampleFrame * _ab, handleState * _state,
 	// check whether we have to change pitch...
 	if( freq_factor != 1.0 || _state->m_varyingPitch )
 	{
-		SRC_DATA src_data;
+        #if 0
+        SRC_DATA src_data;
 		// Generate output
 		src_data.data_in =
 			getSampleFragment( play_frame, fragment_size, _loopmode, &tmp, &is_backwards,
@@ -700,6 +707,7 @@ bool SampleBuffer::play( sampleFrame * _ab, handleState * _state,
 		src_data.output_frames = _frames;
 		src_data.src_ratio = 1.0 / freq_factor;
 		src_data.end_of_input = 0;
+
 		int error = src_process( _state->m_resamplingData,
 								&src_data );
 		if( error )
@@ -712,6 +720,7 @@ bool SampleBuffer::play( sampleFrame * _ab, handleState * _state,
 			printf( "SampleBuffer: not enough frames: %ld / %d\n",
 					src_data.output_frames_gen, _frames );
 		}
+
 		// Advance
 		switch( _loopmode )
 		{
@@ -740,6 +749,7 @@ bool SampleBuffer::play( sampleFrame * _ab, handleState * _state,
 				break;
 			}
 		}
+        #endif
 	}
 	else
 	{
@@ -1190,6 +1200,7 @@ SampleBuffer * SampleBuffer::resample( const sample_rate_t _src_sr,
 	sampleFrame * dst_buf = dst_sb->m_origData;
 
 	// yeah, libsamplerate, let's rock with sinc-interpolation!
+	#if 0
 	int error;
 	SRC_STATE * state;
 	if( ( state = src_new( SRC_SINC_MEDIUM_QUALITY,
@@ -1213,6 +1224,7 @@ SampleBuffer * SampleBuffer::resample( const sample_rate_t _src_sr,
 	{
 		printf( "Error: src_new() failed in sample_buffer.cpp!\n" );
 	}
+	#endif
 	dst_sb->update();
 	return dst_sb;
 }
@@ -1488,11 +1500,12 @@ SampleBuffer::handleState::handleState( bool _varying_pitch, int interpolation_m
 {
 	int error;
 	m_interpolationMode = interpolation_mode;
-	
+	#if 0
 	if( ( m_resamplingData = src_new( interpolation_mode, DEFAULT_CHANNELS, &error ) ) == NULL )
 	{
 		qDebug( "Error: src_new() failed in sample_buffer.cpp!\n" );
 	}
+	#endif
 }
 
 
@@ -1500,5 +1513,5 @@ SampleBuffer::handleState::handleState( bool _varying_pitch, int interpolation_m
 
 SampleBuffer::handleState::~handleState()
 {
-	src_delete( m_resamplingData );
+	//src_delete( m_resamplingData );
 }

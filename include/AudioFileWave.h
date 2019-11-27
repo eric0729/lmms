@@ -29,7 +29,7 @@
 #include "lmmsconfig.h"
 #include "AudioFileDevice.h"
 
-#include <sndfile.h>
+//#include <sndfile.h>
 
 
 class AudioFileWave : public AudioFileDevice
@@ -62,8 +62,8 @@ private:
 	void finishEncoding();
 
 private:
-	SF_INFO m_si;
-	SNDFILE * m_sf;
+        //SF_INFO m_si;
+        //SNDFILE * m_sf;
 } ;
 
 #endif

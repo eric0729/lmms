@@ -38,6 +38,7 @@ AudioDevice::AudioDevice( const ch_cnt_t _channels, Mixer*  _mixer ) :
 	m_mixer( _mixer ),
 	m_buffer( new surroundSampleFrame[mixer()->framesPerPeriod()] )
 {
+#if 0
 	int error;
 	if( ( m_srcState = src_new(
 		mixer()->currentQualitySettings().libsrcInterpolation(),
@@ -45,6 +46,7 @@ AudioDevice::AudioDevice( const ch_cnt_t _channels, Mixer*  _mixer ) :
 	{
 		printf( "Error: src_new() failed in audio_device.cpp!\n" );
 	}
+#endif
 }
 
 
@@ -52,7 +54,7 @@ AudioDevice::AudioDevice( const ch_cnt_t _channels, Mixer*  _mixer ) :
 
 AudioDevice::~AudioDevice()
 {
-	src_delete( m_srcState );
+    //src_delete( m_srcState );
 	delete[] m_buffer;
 
 	m_devMutex.tryLock();
@@ -149,6 +151,7 @@ void AudioDevice::stopProcessingThread( QThread * thread )
 
 void AudioDevice::applyQualitySettings()
 {
+#if 0
 	src_delete( m_srcState );
 
 	int error;
@@ -158,6 +161,7 @@ void AudioDevice::applyQualitySettings()
 	{
 		printf( "Error: src_new() failed in audio_device.cpp!\n" );
 	}
+#endif
 }
 
 
@@ -190,6 +194,7 @@ void AudioDevice::resample( const surroundSampleFrame * _src,
 						const sample_rate_t _src_sr,
 						const sample_rate_t _dst_sr )
 {
+#if 0
 	if( m_srcState == NULL )
 	{
 		return;
@@ -206,6 +211,7 @@ void AudioDevice::resample( const surroundSampleFrame * _src,
 		printf( "AudioDevice::resample(): error while resampling: %s\n",
 							src_strerror( error ) );
 	}
+#endif
 }
 
 

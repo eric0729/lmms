@@ -1863,4 +1863,4 @@ void InstrumentTrackWindow::adjustTabSize(QWidget *w)
 	w->setMinimumSize(INSTRUMENT_WIDTH - 4, INSTRUMENT_HEIGHT - 4 - 1);
 }
 
-#include "InstrumentTrack.moc"
+//#include "InstrumentTrack.moc"

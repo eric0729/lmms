@@ -49,7 +49,7 @@ Effect::Effect( const Plugin::Descriptor * _desc,
 	m_autoQuitModel( 1.0f, 1.0f, 8000.0f, 100.0f, 1.0f, this, tr( "Decay" ) ),
 	m_autoQuitDisabled( false )
 {
-	m_srcState[0] = m_srcState[1] = NULL;
+	//m_srcState[0] = m_srcState[1] = NULL;
 	reinitSRC();
 	
 	if( ConfigManager::inst()->value( "ui", "disableautoquit").toInt() )
@@ -65,10 +65,10 @@ Effect::~Effect()
 {
 	for( int i = 0; i < 2; ++i )
 	{
-		if( m_srcState[i] != NULL )
-		{
-			src_delete( m_srcState[i] );
-		}
+		//if( m_srcState[i] != NULL )
+		//{
+		//	src_delete( m_srcState[i] );
+		//}
 	}
 }
 
@@ -172,6 +172,7 @@ PluginView * Effect::instantiateView( QWidget * _parent )
 
 void Effect::reinitSRC()
 {
+#if 0
 	for( int i = 0; i < 2; ++i )
 	{
 		if( m_srcState[i] != NULL )
@@ -187,6 +188,7 @@ void Effect::reinitSRC()
 			qFatal( "Error: src_new() failed in effect.cpp!\n" );
 		}
 	}
+#endif
 }
 
 
@@ -197,6 +199,7 @@ void Effect::resample( int _i, const sampleFrame * _src_buf,
 				sampleFrame * _dst_buf, sample_rate_t _dst_sr,
 								f_cnt_t _frames )
 {
+#if 0
 	if( m_srcState[_i] == NULL )
 	{
 		return;
@@ -213,5 +216,6 @@ void Effect::resample( int _i, const sampleFrame * _src_buf,
 		qFatal( "Effect::resample(): error while resampling: %s\n",
 							src_strerror( error ) );
 	}
+#endif
 }
 

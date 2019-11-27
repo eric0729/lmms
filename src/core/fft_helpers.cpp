@@ -33,6 +33,7 @@
  *
  * return -1 on error, otherwise the maximum value
  */
+#if 0
 float maximum(const float *abs_spectrum, unsigned int spec_size)
 {
 	float maxi = 0;
@@ -52,13 +53,14 @@ float maximum(const std::vector<float> &abs_spectrum)
 {
 	return maximum(abs_spectrum.data(), abs_spectrum.size());
 }
-
+#endif
 
 /* Normalize the array of absolute magnitudes to a 0..1 range.
  * Block size refers to FFT block size before any zero padding.
  *
  * return -1 on error, 0 on success
  */
+#define NULL 0
 int normalize(const float *abs_spectrum, float *norm_spectrum, unsigned int bin_count, unsigned int block_size)
 {
 	int i;
@@ -164,6 +166,7 @@ int precomputeWindow(float *window, unsigned int length, FFT_WINDOWS type, bool 
  *
  * return 0 on success, else -1
  */
+#if 0
 int absspec(const fftwf_complex *complex_buffer, float *absspec_buffer, unsigned int compl_length)
 {
 	int i;
@@ -179,7 +182,7 @@ int absspec(const fftwf_complex *complex_buffer, float *absspec_buffer, unsigned
 
 	return 0;
 }
-
+#endif
 
 /* Build fewer subbands from many absolute spectrum values.
  * Take care that - compressedbands[] array num_new elements long
@@ -265,7 +268,7 @@ int calc13octaveband31(float *absspec_buffer, float *subbands, int num_spec, flo
 
 		if (j_min < 0 || j_max < 0)
 		{
-			fprintf(stderr, "Error: calc13octaveband31() in fft_helpers.cpp line %d failed.\n", __LINE__);
+            //fprintf(stderr, "Error: calc13octaveband31() in fft_helpers.cpp line %d failed.\n", __LINE__);
 			return -1;
 		}
 

@@ -28,7 +28,7 @@
 #include "lmmsconfig.h"
 
 #include "AudioFileDevice.h"
-#include <sndfile.h>
+//#include <sndfile.h>
 
 class AudioFileFlac: public AudioFileDevice
 {
@@ -59,8 +59,8 @@ public:
 
 private:
 
-	SF_INFO  m_sfinfo;
-	SNDFILE* m_sf;
+        //SF_INFO  m_sfinfo;
+        //SNDFILE* m_sf;
 
 	virtual void writeBuffer(surroundSampleFrame const* _ab,
 						fpp_t const frames,
